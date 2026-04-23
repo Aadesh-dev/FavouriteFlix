@@ -69,7 +69,7 @@ function ListWrapper(props) {
 
   useEffect(() => {
     return () => setSearchText("");
-  }, []);
+  }, [setSearchText]);
 
   return (
     <>

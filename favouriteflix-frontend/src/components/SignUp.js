@@ -73,7 +73,7 @@ function SignUp(props) {
     setIsSignPage(true);
 
     return () => setIsSignPage(false);
-  }, [isUserLoggedIn, navigate]);
+  }, [isUserLoggedIn, navigate, setIsSignPage]);
 
   return (
     <div className="signup container-fluid mt-5">

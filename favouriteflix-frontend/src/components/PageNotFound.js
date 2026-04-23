@@ -8,7 +8,7 @@ function PageNotFound(props) {
     setIs404(true);
 
     return () => setIs404(false);
-  }, []);
+  }, [setIs404]);
 
   return (
     <div className="pageNotFound">
