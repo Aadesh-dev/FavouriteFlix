@@ -5,7 +5,7 @@ import FavouriteList from "./FavouriteList";
 import SlickArrow from "../icons/SlickArrow";
 
 function ListWrapper(props) {
-  const { searchText, setSearchText} = props;
+  const { searchText, setSearchText } = props;
   const baseURI = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}`;
   const [movies, setMovies] = useState([]);
   const [lsMovies, setlsMovies] = useState([]);
@@ -43,28 +43,33 @@ function ListWrapper(props) {
     ],
   };
 
-  const getMovies = async (text) => {
-    const moviesResponse = await axios.get(baseURI + `&s=${text}`);
-    const moviesJson = moviesResponse.data;
-    if (moviesJson.Search) {
-      setMovies(moviesJson.Search);
-      return;
-    }
-    if (moviesJson.Error === "Movie not found!") {
-      setMovies("Your search query didn't return any results.");
-      return;
-    }
-    if (moviesJson.Error === "Too many results.") {
-      setMovies(
-        "Enter something more specific to get relevant search results."
-      );
-      return;
-    }
-    setMovies([]);
-  };
-
   useEffect(() => {
-    getMovies(searchText);
+    const getMovies = async () => {
+      const moviesResponse = await axios.get("https://www.omdbapi.com/", {
+        params: {
+          apikey: API_KEY,
+          s: searchText,
+        },
+      });
+      const moviesJson = moviesResponse.data;
+      if (moviesJson.Search) {
+        setMovies(moviesJson.Search);
+        return;
+      }
+      if (moviesJson.Error === "Movie not found!") {
+        setMovies("Your search query didn't return any results.");
+        return;
+      }
+      if (moviesJson.Error === "Too many results.") {
+        setMovies(
+          "Enter something more specific to get relevant search results."
+        );
+        return;
+      }
+      setMovies([]);
+    }
+
+    getMovies();
   }, [searchText]);
 
   useEffect(() => {
