@@ -6,7 +6,6 @@ import SlickArrow from "../icons/SlickArrow";
 
 function ListWrapper(props) {
   const { searchText, setSearchText } = props;
-  const baseURI = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}`;
   const [movies, setMovies] = useState([]);
   const [lsMovies, setlsMovies] = useState([]);
   const slideSettings = {
