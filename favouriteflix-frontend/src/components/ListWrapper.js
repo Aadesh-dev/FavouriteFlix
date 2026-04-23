@@ -47,7 +47,7 @@ function ListWrapper(props) {
     const getMovies = async () => {
       const moviesResponse = await axios.get("https://www.omdbapi.com/", {
         params: {
-          apikey: API_KEY,
+          apikey: process.env.REACT_APP_OMDB_API_KEY,
           s: searchText,
         },
       });
