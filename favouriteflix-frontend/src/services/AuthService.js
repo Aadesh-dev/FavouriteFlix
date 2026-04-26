@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const AUTH_API_URL = process.env.REACT_APP_API_BASE_URL;
+const AUTH_API_URL = process.env.REACT_APP_API_BASE_URL + "/api/auth";
 
 const register = (username, email, password) => {
-  return axios.post(AUTH_API_URL + "signup", {
+  return axios.post(AUTH_API_URL + "/signup", {
     username,
     email,
     password,
@@ -12,7 +12,7 @@ const register = (username, email, password) => {
 
 const login = (usernameOrEmail, password) => {
   return axios
-    .post(AUTH_API_URL + "signin", {
+    .post(AUTH_API_URL + "/signin", {
       usernameOrEmail,
       password,
     })
@@ -31,7 +31,7 @@ const isUserLoggedIn = () => {
 
 const logout = () => {
   localStorage.removeItem("favflixuser");
-  return axios.post(AUTH_API_URL + "signout").then((response) => {
+  return axios.post(AUTH_API_URL + "/signout").then((response) => {
     return response.data;
   });
 };
