@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const FAVOURITEFLIX_API_BASE_URL = process.env.REACT_APP_API_BASE_URL + "/api/favflix";
+const FAVOURITEFLIX_API_BASE_URL = process.env.REACT_APP_API_BASE_URL + "/favflix";
 
 class FavouriteFlixService {
   addFavFlix(favFlix) {
