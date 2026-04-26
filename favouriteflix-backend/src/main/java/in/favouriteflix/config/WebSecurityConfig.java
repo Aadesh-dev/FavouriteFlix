@@ -70,9 +70,12 @@ public class WebSecurityConfig {
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 
-		configuration.setAllowedOrigins(Arrays.asList(
-			"https://favouriteflix.vercel.app"
-		));
+		// configuration.setAllowedOrigins(Arrays.asList(
+		// 	"https://favouriteflix.vercel.app"
+		// ));
+
+		configuration.setAllowedOrigins(Arrays.asList("*"));
+		configuration.setAllowCredentials(false);
 
 		configuration.setAllowedMethods(Arrays.asList(
 			"GET", "POST", "PUT", "DELETE", "OPTIONS"
