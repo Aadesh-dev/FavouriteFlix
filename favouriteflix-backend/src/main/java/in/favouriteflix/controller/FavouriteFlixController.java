@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import in.favouriteflix.entities.FavouriteFlix;
 import in.favouriteflix.service.FavouriteFlixService;
 
-@CrossOrigin(origins="http://localhost:3000", maxAge = 3600, exposedHeaders="Set-Cookie")
 @RestController
 @RequestMapping(value = "/api/favflix")
 public class FavouriteFlixController {

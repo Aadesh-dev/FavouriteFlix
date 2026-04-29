@@ -29,7 +29,6 @@ import in.favouriteflix.payload.request.LoginDto;
 import in.favouriteflix.payload.request.SignUpDto;
 import in.favouriteflix.payload.response.MessageResponse;
 
-@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600, exposedHeaders = "Set-Cookie")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
