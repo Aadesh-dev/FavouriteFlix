@@ -11,7 +11,7 @@ const Movie = (props) => {
     deleteOp,
     setDeleteOp,
   } = props;
-  const isUserLoggedIn = useContext(UserContext);
+  const { isUserLoggedIn } = useContext(UserContext);
 
   const addToFavourites = () => {
     if (isUserLoggedIn) {

@@ -7,7 +7,7 @@ import { UserContext } from "../App";
 function FavouriteList(props) {
   const { lsMovies, setlsMovies, slideSettings } = props;
   const [deleteOp, setDeleteOp] = useState(false);
-  const isUserLoggedIn = useContext(UserContext);
+  const { isUserLoggedIn } = useContext(UserContext);
   const sliderRef = useRef();
 
   useEffect(() => {

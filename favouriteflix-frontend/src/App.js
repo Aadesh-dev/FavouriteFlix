@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext, useMemo } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.scss";
 import "@fortawesome/fontawesome-free/css/all.css";
@@ -25,8 +25,10 @@ function App() {
     if (user) setIsUserLoggedIn(true);
   }, []);
 
+  // const userContextValue = useMemo(() => ({ isUserLoggedIn }), [isUserLoggedIn]);
+
   return (
-    <UserContext.Provider value={isUserLoggedIn}>
+    <UserContext.Provider value={{ isUserLoggedIn }}>
       <div className={`App d-flex flex-column ${isSignPage ? "showBg" : ""}`}>
         <Header
           setSearchText={setSearchText}
@@ -42,7 +44,10 @@ function App() {
               path={"/"}
               element={
                 isUserLoggedIn ? (
-                  <ListWrapper searchText={searchText} />
+                  <ListWrapper
+                    searchText={searchText}
+                    setSearchText={setSearchText}
+                  />
                 ) : (
                   <SignIn
                     setIsUserLoggedIn={setIsUserLoggedIn}
@@ -58,7 +63,6 @@ function App() {
                 <ListWrapper
                   searchText={searchText}
                   setSearchText={setSearchText}
-                  isUserLoggedIn={isUserLoggedIn}
                 />
               }
             />
@@ -76,7 +80,7 @@ function App() {
               path="/signup"
               element={<SignUp setIsSignPage={setIsSignPage} />}
             />
-            <Route path="*" element={<PageNotFound setIs404={setIs404}/>} />
+            <Route path="*" element={<PageNotFound setIs404={setIs404} />} />
           </Routes>
         </main>
         <Footer />
