@@ -11,7 +11,7 @@ const Movie = (props) => {
     deleteOp,
     setDeleteOp,
   } = props;
-  const { isUserLoggedIn } = useContext(UserContext);
+  const isUserLoggedIn = useContext(UserContext);
 
   const addToFavourites = () => {
     if (isUserLoggedIn) {
@@ -39,7 +39,7 @@ const Movie = (props) => {
       FavouriteFlixService.deleteFavFlix(movie.imdbID)
         .then(() => {
           setlsMovies(
-            lsMovies.filter((lsMovie) => lsMovie.imdbID !== movie.imdbID)
+            lsMovies.filter((lsMovie) => lsMovie.imdbID !== movie.imdbID),
           );
           setDeleteOp(!deleteOp);
         })
@@ -47,7 +47,7 @@ const Movie = (props) => {
     } else {
       localStorage.removeItem(movie.imdbID);
       setlsMovies(
-        lsMovies.filter((lsMovie) => lsMovie.imdbID !== movie.imdbID)
+        lsMovies.filter((lsMovie) => lsMovie.imdbID !== movie.imdbID),
       );
       setDeleteOp(!deleteOp);
     }

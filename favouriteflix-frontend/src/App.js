@@ -28,7 +28,7 @@ function App() {
   // const userContextValue = useMemo(() => ({ isUserLoggedIn }), [isUserLoggedIn]);
 
   return (
-    <UserContext.Provider value={{ isUserLoggedIn }}>
+    <UserContext.Provider value={isUserLoggedIn}>
       <div className={`App d-flex flex-column ${isSignPage ? "showBg" : ""}`}>
         <Header
           setSearchText={setSearchText}

@@ -7,7 +7,7 @@ import { UserContext } from "../App";
 function FavouriteList(props) {
   const { lsMovies, setlsMovies, slideSettings } = props;
   const [deleteOp, setDeleteOp] = useState(false);
-  const { isUserLoggedIn } = useContext(UserContext);
+  const isUserLoggedIn = useContext(UserContext);
   const sliderRef = useRef();
 
   useEffect(() => {
@@ -18,7 +18,10 @@ function FavouriteList(props) {
     } else {
       const item = [];
       for (let i = 0; i < localStorage.length; i++) {
-        if (localStorage.key(i) !== "favflixuser")
+        if (
+          localStorage.key(i) !== "favflixuser" &&
+          localStorage.key(i) !== "token"
+        )
           item.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
       }
       setlsMovies(item);
@@ -26,8 +29,10 @@ function FavouriteList(props) {
   }, [isUserLoggedIn, setlsMovies]);
 
   useEffect(() => {
-    sliderRef.current?.slickGoTo(sliderRef.current.innerSlider.state.currentSlide);
-  }, [deleteOp])
+    sliderRef.current?.slickGoTo(
+      sliderRef.current.innerSlider.state.currentSlide,
+    );
+  }, [deleteOp]);
 
   return (
     <section className="favouriteslist">
