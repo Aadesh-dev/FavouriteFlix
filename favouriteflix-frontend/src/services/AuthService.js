@@ -17,12 +17,14 @@ const login = (usernameOrEmail, password) => {
       password,
     })
     .then((response) => {
-      if (response.data.message) {
-        localStorage.setItem("favflixuser", response.data.message);
+      if (response.data.accessToken) {
+        localStorage.setItem("token", response.data.accessToken);
       }
 
+      localStorage.setItem("favflixuser", usernameOrEmail);
+
       return response.data;
-    })
+    });
 };
 
 const isUserLoggedIn = () => {
@@ -30,7 +32,9 @@ const isUserLoggedIn = () => {
 };
 
 const logout = () => {
+  localStorage.removeItem("token");
   localStorage.removeItem("favflixuser");
+
   return axios.post(AUTH_API_URL + "/signout").then((response) => {
     return response.data;
   });

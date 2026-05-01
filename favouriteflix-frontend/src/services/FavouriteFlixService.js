@@ -1,20 +1,35 @@
 import axios from "axios";
 
-const FAVOURITEFLIX_API_BASE_URL = process.env.REACT_APP_API_BASE_URL + "/api/favflix";
+const api = axios.create({
+  baseURL: process.env.REACT_APP_API_BASE_URL + "/api/favflix",
+});
+
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
 
 class FavouriteFlixService {
   addFavFlix(favFlix) {
-    return axios.post(FAVOURITEFLIX_API_BASE_URL + "/addFavFlix", favFlix);
+    return api.post("/addFavFlix", favFlix);
   }
 
   getAllFavFlix() {
-    return axios.get(FAVOURITEFLIX_API_BASE_URL + "/getAllFavFlix");
+    return api.get("/getAllFavFlix");
   }
 
   deleteFavFlix(imdbID) {
-    return axios.delete(
-      FAVOURITEFLIX_API_BASE_URL + "/deleteFavFlix/" + imdbID
-    );
+    return api.delete("/deleteFavFlix/" + imdbID);
   }
 }
 

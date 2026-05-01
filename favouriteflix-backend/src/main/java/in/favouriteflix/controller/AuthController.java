@@ -28,6 +28,7 @@ import in.favouriteflix.jwt.JwtUtils;
 import in.favouriteflix.payload.request.LoginDto;
 import in.favouriteflix.payload.request.SignUpDto;
 import in.favouriteflix.payload.response.MessageResponse;
+import in.favouriteflix.payload.response.JwtResponse;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -82,32 +83,30 @@ public class AuthController {
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		// Cookie approach
-		ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(authentication);
-
 		// Header approach
-		// String jwt = jwtUtils.generateJwtToken(authentication);
+		String jwt = jwtUtils.generateJwtToken(authentication);
 
-		// In header approach, we were passing below user info and roles in JwtResponse
-		// payload.
-		// UserDetails userDetails =
-		// (org.springframework.security.core.userdetails.User)
-		// authentication.getPrincipal();
-		// List<String> roles = userDetails.getAuthorities().stream().map(item ->
-		// item.getAuthority())
-		// .collect(Collectors.toList());
-//		HttpHeaders httpHeaders = new HttpHeaders();
-//		httpHeaders.add(HttpHeaders.SET_COOKIE, jwtCookie.toString());
-//		httpHeaders.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, HttpHeaders.SET_COOKIE);
+		return ResponseEntity.ok(new JwtResponse(jwt));
 
-		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-				.body(new MessageResponse("Signed in successfully!"));
+		// Cookie approach
+		// ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(authentication);
+
+		// return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+		// 		.body(new MessageResponse("Signed in successfully!"));
 	}
 
 	@PostMapping("/signout")
 	public ResponseEntity<?> signout() {
-		ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
-		return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
-				.body(new MessageResponse("You've been signed out!"));
+		// Header approach
+		return ResponseEntity.ok(
+            new MessageResponse("You've been signed out!"));
+
+		//Cookie approach
+		// ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
+
+		// return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
+		// 		.body(new MessageResponse("You've been signed out!"));
+
+
 	}
 }
