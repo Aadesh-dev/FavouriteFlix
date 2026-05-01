@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useMemo } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.scss";
 import "@fortawesome/fontawesome-free/css/all.css";
