@@ -4,8 +4,14 @@ import ClapboardIcon from "../icons/ClapboardIcon";
 import AuthService from "../services/AuthService";
 
 function Header(props) {
-  const { setSearchText, isUserLoggedIn, setIsUserLoggedIn, isSignPage, is404 } =
-    props;
+  const {
+    setSearchText,
+    isUserLoggedIn,
+    setIsUserLoggedIn,
+    isSignPage,
+    is404,
+    setMovies,
+  } = props;
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -24,14 +30,7 @@ function Header(props) {
         </h2>
         {!isSignPage && !is404 ? (
           <div className="navbar__search-container d-flex justify-content-between col">
-            <div className="Search ms-md-auto me-3 col col-md-auto">
-              <input
-                type="search"
-                placeholder="Search"
-                className="form-control"
-                onChange={(event) => setSearchText(event.target.value)}
-              ></input>
-            </div>
+            <Search setMovies={setMovies} />
             {isUserLoggedIn ? (
               <button
                 type="button"

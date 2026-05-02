@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import MovieList from "./MovieList";
 import FavouriteList from "./FavouriteList";
 import SlickArrow from "../icons/SlickArrow";
 
 function ListWrapper(props) {
-  const { searchText, setSearchText } = props;
-  const [movies, setMovies] = useState([]);
+  const { movies } = props;
   const [favouriteMovies, setFavouriteMovies] = useState([]);
   const slideSettings = {
     dots: false,
@@ -40,39 +38,6 @@ function ListWrapper(props) {
       },
     ],
   };
-
-  useEffect(() => {
-    const getMovies = async () => {
-      const moviesResponse = await axios.get("https://www.omdbapi.com/", {
-        params: {
-          apikey: process.env.REACT_APP_OMDB_API_KEY,
-          s: searchText,
-        },
-      });
-      const moviesJson = moviesResponse.data;
-      if (moviesJson.Search) {
-        setMovies(moviesJson.Search);
-        return;
-      }
-      if (moviesJson.Error === "Movie not found!") {
-        setMovies("Your search query didn't return any results.");
-        return;
-      }
-      if (moviesJson.Error === "Too many results.") {
-        setMovies(
-          "Enter something more specific to get relevant search results."
-        );
-        return;
-      }
-      setMovies([]);
-    }
-
-    getMovies();
-  }, [searchText]);
-
-  useEffect(() => {
-    return () => setSearchText("");
-  }, [setSearchText]);
 
   return (
     <>

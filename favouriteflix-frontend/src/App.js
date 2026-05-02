@@ -14,22 +14,22 @@ import ListWrapper from "./components/ListWrapper";
 export const UserContext = createContext();
 
 function App() {
-  const [searchText, setSearchText] = useState("");
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(
     !!localStorage.getItem("token"),
   );
   const [isSignPage, setIsSignPage] = useState(false);
   const [is404, setIs404] = useState(false);
+  const [movies, setMovies] = useState([]);
 
   return (
     <UserContext.Provider value={isUserLoggedIn}>
       <div className={`App d-flex flex-column ${isSignPage ? "showBg" : ""}`}>
         <Header
-          setSearchText={setSearchText}
           isUserLoggedIn={isUserLoggedIn}
           setIsUserLoggedIn={setIsUserLoggedIn}
           isSignPage={isSignPage}
           is404={is404}
+          setMovies={setMovies}
         />
         <main>
           <Routes>
@@ -39,8 +39,7 @@ function App() {
               element={
                 isUserLoggedIn ? (
                   <ListWrapper
-                    searchText={searchText}
-                    setSearchText={setSearchText}
+                    movies={movies}
                   />
                 ) : (
                   <SignIn
@@ -55,8 +54,7 @@ function App() {
               path={"/home"}
               element={
                 <ListWrapper
-                  searchText={searchText}
-                  setSearchText={setSearchText}
+                  movies={movies}
                 />
               }
             />
