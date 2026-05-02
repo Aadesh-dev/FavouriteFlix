@@ -15,7 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.http.HttpMethod;
 
 import in.favouriteflix.service.UserDetailsServiceImpl;
 
@@ -52,11 +51,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 	}
 
 	private String parseJwt(HttpServletRequest request) {
-		// Cookie approach
-		// String jwt = jwtUtils.getJwtFromCookies(request);
-		// return jwt;
-
-		// Header approach
+		// Extract JWT from Authorization header
 		String headerAuth = request.getHeader("Authorization");
 
 		if (headerAuth != null && headerAuth.startsWith("Bearer ")) {

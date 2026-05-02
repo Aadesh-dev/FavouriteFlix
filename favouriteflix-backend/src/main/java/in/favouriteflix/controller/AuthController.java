@@ -80,29 +80,16 @@ public class AuthController {
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		// Header approach
+		// Header approach - JWT token is returned in response body
 		String jwt = jwtUtils.generateJwtToken(authentication);
 
 		return ResponseEntity.ok(new JwtResponse(jwt));
-
-		// Cookie approach
-		// ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(authentication);
-
-		// return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-		// 		.body(new MessageResponse("Signed in successfully!"));
 	}
 
 	@PostMapping("/signout")
 	public ResponseEntity<?> signout() {
 		// Header approach - Clear server-side authentication context
 		SecurityContextHolder.clearContext();
-		return ResponseEntity.ok(
-            new MessageResponse("You've been signed out!"));
-
-		//Cookie approach
-		// ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
-
-		// return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
-		// 		.body(new MessageResponse("You've been signed out!"));
+		return ResponseEntity.ok(new MessageResponse("You've been signed out!"));
 	}
 }
