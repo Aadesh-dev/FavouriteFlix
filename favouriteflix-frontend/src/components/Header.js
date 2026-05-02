@@ -6,7 +6,6 @@ import Search from "./Search";
 
 function Header(props) {
   const {
-    setSearchText,
     isUserLoggedIn,
     setIsUserLoggedIn,
     isSignPage,
