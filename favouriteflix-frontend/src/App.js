@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, createContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.scss";
 import "@fortawesome/fontawesome-free/css/all.css";
@@ -10,7 +10,6 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import PageNotFound from "./components/PageNotFound";
 import ListWrapper from "./components/ListWrapper";
-import AuthService from "./services/AuthService";
 
 export const UserContext = createContext();
 
