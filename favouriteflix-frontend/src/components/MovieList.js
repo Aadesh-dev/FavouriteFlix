@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import Movie from "./Movie";
 
 function MovieList(props) {
-  const { movies, slideSettings, lsMovies, setlsMovies } = props;
+  const { movies, slideSettings, favouriteMovies, setFavouriteMovies } = props;
 
   const displayData = () => {
     if (!movies.length) {
@@ -17,7 +17,7 @@ function MovieList(props) {
         return (
           <Slider {...slideSettings}>
             {movies.map((movie) => (
-              <Movie movie={movie} key={movie.imdbID + "-mov"} setlsMovies={setlsMovies} lsMovies={lsMovies} />
+              <Movie movie={movie} key={movie.imdbID + "-mov"} favouriteMovies={favouriteMovies} setFavouriteMovies={setFavouriteMovies} />
             ))}
           </Slider>
         );

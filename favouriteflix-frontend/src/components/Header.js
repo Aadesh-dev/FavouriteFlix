@@ -7,9 +7,6 @@ function Header(props) {
   const { setSearchText, isUserLoggedIn, setIsUserLoggedIn, isSignPage, is404 } =
     props;
   const navigate = useNavigate();
-  //A way to get props passed from navigate()
-  // const { state } = useLocation();
-  // const isGuestUser = state && state.isGuestUser;
 
   const handleLogout = () => {
     AuthService.logout().then(() => {

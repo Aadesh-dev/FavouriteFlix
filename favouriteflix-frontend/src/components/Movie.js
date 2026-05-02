@@ -6,8 +6,8 @@ const Movie = (props) => {
   const {
     movie,
     fromFavouritesList = false,
-    lsMovies,
-    setlsMovies,
+    favouriteMovies,
+    setFavouriteMovies,
     deleteOp,
     setDeleteOp,
   } = props;
@@ -18,19 +18,19 @@ const Movie = (props) => {
       FavouriteFlixService.addFavFlix(movie)
         .then(() => {
           if (
-            lsMovies.filter((lsMovie) => lsMovie.imdbID === movie.imdbID)
+            favouriteMovies.filter((lsMovie) => lsMovie.imdbID === movie.imdbID)
               .length === 0
           )
-            setlsMovies([...lsMovies, movie]);
+            setFavouriteMovies([...favouriteMovies, movie]);
         })
         .catch((error) => console.log(error));
     } else {
       localStorage.setItem(movie.imdbID, JSON.stringify(movie));
       if (
-        lsMovies.filter((lsMovie) => lsMovie.imdbID === movie.imdbID).length ===
+        favouriteMovies.filter((lsMovie) => lsMovie.imdbID === movie.imdbID).length ===
         0
       )
-        setlsMovies([...lsMovies, movie]);
+        setFavouriteMovies([...favouriteMovies, movie]);
     }
   };
 
@@ -38,16 +38,16 @@ const Movie = (props) => {
     if (isUserLoggedIn) {
       FavouriteFlixService.deleteFavFlix(movie.imdbID)
         .then(() => {
-          setlsMovies(
-            lsMovies.filter((lsMovie) => lsMovie.imdbID !== movie.imdbID),
+          setFavouriteMovies(
+            favouriteMovies.filter((lsMovie) => lsMovie.imdbID !== movie.imdbID),
           );
           setDeleteOp(!deleteOp);
         })
         .catch((error) => console.log(error));
     } else {
       localStorage.removeItem(movie.imdbID);
-      setlsMovies(
-        lsMovies.filter((lsMovie) => lsMovie.imdbID !== movie.imdbID),
+      setFavouriteMovies(
+        favouriteMovies.filter((lsMovie) => lsMovie.imdbID !== movie.imdbID),
       );
       setDeleteOp(!deleteOp);
     }

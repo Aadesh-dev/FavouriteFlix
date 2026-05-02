@@ -5,7 +5,7 @@ import FavouriteFlixService from "../services/FavouriteFlixService";
 import { UserContext } from "../App";
 
 function FavouriteList(props) {
-  const { lsMovies, setlsMovies, slideSettings } = props;
+  const { favouriteMovies, setFavouriteMovies, slideSettings } = props;
   const [deleteOp, setDeleteOp] = useState(false);
   const isUserLoggedIn = useContext(UserContext);
   const sliderRef = useRef();
@@ -13,20 +13,17 @@ function FavouriteList(props) {
   useEffect(() => {
     if (isUserLoggedIn) {
       FavouriteFlixService.getAllFavFlix()
-        .then((response) => setlsMovies(response.data))
+        .then((response) => setFavouriteMovies(response.data))
         .catch((error) => console.log(error));
     } else {
       const item = [];
       for (let i = 0; i < localStorage.length; i++) {
-        if (
-          localStorage.key(i) !== "favflixuser" &&
-          localStorage.key(i) !== "token"
-        )
+        if (localStorage.key(i) !== "token")
           item.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
       }
-      setlsMovies(item);
+      setFavouriteMovies(item);
     }
-  }, [isUserLoggedIn, setlsMovies]);
+  }, [isUserLoggedIn, setFavouriteMovies]);
 
   useEffect(() => {
     sliderRef.current?.slickGoTo(
@@ -37,19 +34,19 @@ function FavouriteList(props) {
   return (
     <section className="favouriteslist">
       <h3 className="favouriteslist__header mt-4 mb-3">Favourites</h3>
-      {!lsMovies.length ? (
+      {!favouriteMovies.length ? (
         <p className="favouriteslist__emptyMsg mb-0">
           You don't have any favourites currently.
         </p>
       ) : (
         <Slider {...slideSettings} ref={sliderRef}>
-          {lsMovies.map((lsMovie) => (
+          {favouriteMovies.map((lsMovie) => (
             <Movie
               movie={lsMovie}
               key={lsMovie.imdbID + "-fav"}
               fromFavouritesList={true}
-              lsMovies={lsMovies}
-              setlsMovies={setlsMovies}
+              favouriteMovies={favouriteMovies}
+              setFavouriteMovies={setFavouriteMovies}
               setDeleteOp={setDeleteOp}
               deleteOp={deleteOp}
             />

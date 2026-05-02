@@ -7,14 +7,13 @@ import SlickArrow from "../icons/SlickArrow";
 function ListWrapper(props) {
   const { searchText, setSearchText } = props;
   const [movies, setMovies] = useState([]);
-  const [lsMovies, setlsMovies] = useState([]);
+  const [favouriteMovies, setFavouriteMovies] = useState([]);
   const slideSettings = {
     dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 6,
     slidesToScroll: 6,
-    //initialSlide: 0,
     nextArrow: <SlickArrow aria-label="Next arrow" />,
     prevArrow: <SlickArrow aria-label="Previous arrow" />,
     responsive: [
@@ -80,13 +79,13 @@ function ListWrapper(props) {
       <MovieList
         movies={movies}
         slideSettings={slideSettings}
-        lsMovies={lsMovies}
-        setlsMovies={setlsMovies}
+        favouriteMovies={favouriteMovies}
+        setFavouriteMovies={setFavouriteMovies}
       />
       <FavouriteList
         slideSettings={slideSettings}
-        lsMovies={lsMovies}
-        setlsMovies={setlsMovies}
+        favouriteMovies={favouriteMovies}
+        setFavouriteMovies={setFavouriteMovies}
       />
     </>
   );

@@ -16,16 +16,11 @@ export const UserContext = createContext();
 
 function App() {
   const [searchText, setSearchText] = useState("");
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(
+    !!localStorage.getItem("token"),
+  );
   const [isSignPage, setIsSignPage] = useState(false);
   const [is404, setIs404] = useState(false);
-
-  useEffect(() => {
-    const user = AuthService.isUserLoggedIn();
-    if (user) setIsUserLoggedIn(true);
-  }, []);
-
-  // const userContextValue = useMemo(() => ({ isUserLoggedIn }), [isUserLoggedIn]);
 
   return (
     <UserContext.Provider value={isUserLoggedIn}>

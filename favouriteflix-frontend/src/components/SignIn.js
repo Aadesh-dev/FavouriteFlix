@@ -5,18 +5,18 @@ import AuthService from "../services/AuthService";
 
 function SignIn(props) {
   const {isUserLoggedIn, setIsUserLoggedIn, setIsSignPage } = props;
-  const [usernameOrEmail, setUsernameOrEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ criteriaMode: "all", mode: "all" });
+  
   const navigate = useNavigate();
 
   const handleLogin = (data) => {
-    AuthService.login(usernameOrEmail, password)
+    AuthService.login(data.usernameOrEmail, data.password)
       .then(() => {
         navigate("/home");
         setIsUserLoggedIn(true);
@@ -80,7 +80,6 @@ function SignIn(props) {
               className={`form-control ${errors.usernameOrEmail ? 'is-invalid' : ''}`}
               {...register("usernameOrEmail", {
                 required: true,
-                onChange: (e) => setUsernameOrEmail(e.target.value),
               })}
               placeholder=" "
               aria-required="true"
@@ -107,7 +106,6 @@ function SignIn(props) {
                 required: true,
                 minLength: 8,
                 maxLength: 50,
-                onChange: (e) => setPassword(e.target.value),
               })}
               placeholder=" "
               aria-required="true"

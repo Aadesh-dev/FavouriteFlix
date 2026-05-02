@@ -7,11 +7,9 @@ import AuthService from "../services/AuthService";
 
 function SignUp(props) {
   const { isUserLoggedIn, setIsSignPage } = props;
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [signUpSuccess, setSignUpSuccess] = useState(false);
+
   const validationSchema = Yup.object().shape({
     username: Yup.string()
       .required("Username cannot be empty.")
@@ -34,8 +32,8 @@ function SignUp(props) {
     confirm_password: Yup.string()
       .required("Confirm Password cannot be empty.")
       .oneOf([Yup.ref("password"), null], "Passwords do not match."),
-    //acceptTerms: Yup.bool().oneOf([true], 'Accept Terms cannot be empty.')
   });
+
   const {
     register,
     handleSubmit,
@@ -45,10 +43,11 @@ function SignUp(props) {
     mode: "all",
     resolver: yupResolver(validationSchema),
   });
+
   const navigate = useNavigate();
 
   const handleSignUp = (data) => {
-    AuthService.register(username, email, password)
+    AuthService.register(data.username, data.email, data.password)
       .then(() => {
         setSignUpSuccess(true);
       })
@@ -125,9 +124,7 @@ function SignUp(props) {
                   className={`form-control ${
                     errors.username ? "is-invalid" : ""
                   }`}
-                  {...register("username", {
-                    onChange: (e) => setUsername(e.target.value),
-                  })}
+                  {...register("username")}
                   placeholder=" "
                   aria-invalid={errors.username ? "true" : "false"}
                 />
@@ -145,9 +142,7 @@ function SignUp(props) {
                   id="email"
                   type="text"
                   className={`form-control ${errors.email ? "is-invalid" : ""}`}
-                  {...register("email", {
-                    onChange: (e) => setEmail(e.target.value),
-                  })}
+                  {...register("email")}
                   placeholder=" "
                   aria-invalid={errors.email ? "true" : "false"}
                 />
@@ -167,11 +162,7 @@ function SignUp(props) {
                   className={`form-control ${
                     errors.password ? "is-invalid" : ""
                   }`}
-                  {...register("password", {
-                    minLength: 8,
-                    maxLength: 50,
-                    onChange: (e) => setPassword(e.target.value),
-                  })}
+                  {...register("password")}
                   placeholder=" "
                   aria-invalid={errors.password ? "true" : "false"}
                 />
@@ -191,10 +182,7 @@ function SignUp(props) {
                   className={`form-control ${
                     errors.confirm_password ? "is-invalid" : ""
                   }`}
-                  {...register("confirm_password", {
-                    minLength: 6,
-                    maxLength: 50,
-                  })}
+                  {...register("confirm_password")}
                   placeholder=" "
                   aria-invalid={errors.confirm_password ? "true" : "false"}
                 />
