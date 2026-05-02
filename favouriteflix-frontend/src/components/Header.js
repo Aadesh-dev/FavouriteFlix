@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import ClapboardIcon from "../icons/ClapboardIcon";
 import AuthService from "../services/AuthService";
+import Search from "./Search";
 
 function Header(props) {
   const {
