@@ -25,14 +25,16 @@ public class FavouriteFlixServiceImpl implements FavouriteFlixService {
 	@Autowired
 	UserRepository userRepository;
 
+	@Override
 	public List<FavouriteFlix> getAllFavFlix() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetails = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
 		String username = userDetails.getUsername();
 		User currentLoggedInUser = userRepository.findByUsername(username).get();
-		return new ArrayList<FavouriteFlix>(currentLoggedInUser.getFlix());
+		return new ArrayList<>(currentLoggedInUser.getFlix());
 	}
 
+	@Override
 	public FavouriteFlix addFavFlix(FavouriteFlix favouriteFlix) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetails = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
@@ -42,9 +44,10 @@ public class FavouriteFlixServiceImpl implements FavouriteFlixService {
 		currentLoggedInUser.addFlix(favouriteFlix);
 		userRepository.save(currentLoggedInUser);
 		return favouriteFlix;
-		//return favFlixRepo.save(favouriteFlix);
+		// return favFlixRepo.save(favouriteFlix);
 	}
 
+	@Override
 	public void deleteFavFlix(String imdbID) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetails = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
@@ -52,9 +55,9 @@ public class FavouriteFlixServiceImpl implements FavouriteFlixService {
 		User currentLoggedInUser = userRepository.findByUsername(username).get();
 		FavouriteFlix currentFlix = favFlixRepo.findById(imdbID).get();
 		currentLoggedInUser.removeFlix(currentFlix);
-		userRepository.save(currentLoggedInUser);		
+		userRepository.save(currentLoggedInUser);
 		Set<User> usersHavingCurrentFlix = currentFlix.getUsers();
-		if(usersHavingCurrentFlix.isEmpty()) {
+		if (usersHavingCurrentFlix.isEmpty()) {
 			favFlixRepo.deleteById(imdbID);
 		}
 	}

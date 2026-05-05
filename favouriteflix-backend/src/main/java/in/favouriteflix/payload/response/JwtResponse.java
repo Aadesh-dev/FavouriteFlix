@@ -3,7 +3,7 @@ package in.favouriteflix.payload.response;
 public class JwtResponse {
 
     private String accessToken;
-    private String tokenType = "Bearer";
+    private final String tokenType = "Bearer";
 
     public JwtResponse(String accessToken) {
         this.accessToken = accessToken;
